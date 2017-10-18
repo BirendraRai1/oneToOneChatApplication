@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title><%= title %></title>
+</head>
+<body>
+  <header>
+          <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a href="/" class="boxN">chatApplication</a>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                <li class="boxF"><a href="/">Home</a></li>
+                <li class="boxF"><a href="/chat">Chat</a></li>
+                <% if(user){ %>
+                  <li  class="boxF"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
+                  <li  class="boxF"><a href="#">Hello, <%= user.username %></a></li>
+                  <li  class="boxF"><a href="/user/logout">Logout</a></li>
+                <% } else{ %>
+                  <li class="boxF"><a href="/user/login">Login</a></li>
+                  <li class="boxF"><a href="/user/signup">Signup</a></li>
+                <% } %>
+              </ul>
+            </div>
+          </nav>
+        </header>
+
+  <main>
+
+    <p>Response</p>
+    <p> <%= msg %> </p><br>
+    <p> <%= status %> </p><br>
+    <p> <%= error %> </p><br>
+
+  </main>
+  <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
+  <script src="/moment.min.js"></script>
+  <script src="/scriptforChat.js"></script>
+</body>
+</html>
