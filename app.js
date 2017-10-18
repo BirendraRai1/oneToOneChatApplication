@@ -13,7 +13,7 @@ var logger = require('morgan');
 var port = process.env.PORT || 3000;
 
 //socket.i
-require('./sockets/chat.js').sockets(http);
+require('./sockets/chatAndLogin.js').sockets(http);
 //require('./sockets/signup.js').sockets(http);
 
 app.use(logger('dev'));

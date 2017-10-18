@@ -6,7 +6,7 @@ var eventEmitter = new events.EventEmitter();
 
 //adding db models
 require('../app/models/userSchema.js');
-require('../app/models/chatSchema.js');
+require('../app/models/conversationSchema.js');
 require('../app/models/roomSchema.js');
 
 //using mongoose Schema models
