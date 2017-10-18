@@ -12,8 +12,8 @@ var logger = require('morgan');
 //port setup
 var port = process.env.PORT || 3000;
 
-//socket.io
-require('./libs/chat.js').sockets(http);
+//socket.i
+require('./sockets/chat.js').sockets(http);
 //require('./sockets/signup.js').sockets(http);
 
 app.use(logger('dev'));
@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 
 //db connection
-var dbPath = "mongodb://localhost/chatApplication";
+var dbPath = "mongodb://localhost/chatApplication4";
 mongoose.connect(dbPath);
 mongoose.connection.once('open',function(){
   console.log("Database Connection opened.");
@@ -44,7 +44,7 @@ app.use(session({
 
 
 //public folder as static
-app.use(express.static('public'));
+app.use(express.static('client'));
 
 
 
@@ -91,7 +91,7 @@ var userModel = mongoose.model('User');
 app.use(function(req,res,next){
 
 	if(req.session && req.session.user){
-		userModel.findOne({'email':req.session.user.email},function(err,user){
+		userModel.findOne({'username':req.session.user.username},function(err,user){
 
 			if(user){
         req.user = user;

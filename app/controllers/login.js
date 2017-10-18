@@ -3,8 +3,6 @@ var mongoose = require('mongoose');
 
 //middlewares
 var auth = require('../../middlewares/auth.js');
-var encrypt = require('../../libs/encrypt.js');
-
 var loginRouter = express.Router();
 
 var userModel = mongoose.model('User');
@@ -30,16 +28,14 @@ module.exports.controllerFunction = function(app){
   });
 
   //route for login
-  loginRouter.post('/api/v1/login',auth.loggedIn,function(req,res){
+  loginRouter.post('/existingUser/login',auth.loggedIn,function(req,res){
 
-    var epass = encrypt.encryptPassword(req.body.password);
-
-    userModel.findOne({$and:[{'email':req.body.email},{'password':epass}]},function(err,result){
+      userModel.findOne({$and:[{'email':req.body.email},{'password':req.body.password}]},function(err,result){
       if(err){
         res.render('message',
                     {
                       title:"Error",
-                      msg:"Some Error Occured During Login.",
+                      message:"Some Error Occured During Login.",
                       status:500,
                       error:err,
                       user:req.session.user,
@@ -50,7 +46,7 @@ module.exports.controllerFunction = function(app){
         res.render('message',
                     {
                       title:"Error",
-                      msg:"User Not Found. Please Check Your Username and Password.",
+                      message:"User Not Found. Please Check Your Username and Password.",
                       status:404,
                       error:"",
                       user:req.session.user,

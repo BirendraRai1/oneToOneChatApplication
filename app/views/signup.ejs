@@ -14,7 +14,7 @@
               <li><a href="/">Home</a></li>
               <li><a href="/chat">Chat</a></li>
               <% if(user){ %>
-                <li><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
+                <li><a href=""><span id="totalOnline" >0</span>  User's Online</a></li>
                 <li><a href="#">Hello, <%= user.username %></a></li>
                 <li><a href="/user/logout">Logout</a></li>
               <% } else{ %>
@@ -29,7 +29,7 @@
          <div>
             <br>
             <p><b>Sign Up</b></p>
-            <form action="/user/api/v1/signup" method="post">
+            <form action="/user/newuser/signup" method="post">
                <p id="error1"></p>
                <div>
                   <p>Username:</p>
@@ -61,6 +61,5 @@
       <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
       <script src="/moment.min.js"></script>
       <script src="/scriptForSignup.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   </body>
+      </body>
 </html>

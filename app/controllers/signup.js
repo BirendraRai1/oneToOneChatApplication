@@ -1,19 +1,11 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var shortid = require("shortid");
 
 
 //middlewares
 var auth = require('../../middlewares/auth.js');
-var validator = require('../../middlewares/validator.js');
-var encrypt = require('../../libs/encrypt.js');
-
 var signUpRouter = express.Router();
-
-
 var userModel = mongoose.model('User');
-
-
 module.exports.controllerFunction = function(app){
 
   //route for signup
@@ -27,23 +19,16 @@ module.exports.controllerFunction = function(app){
   });
 
   //api to create new user
-  signUpRouter.post("/api/v1/signup",auth.loggedIn,validator.emailExist,function(req,res){
+  signUpRouter.post("/newuser/signup",auth.loggedIn,function(req,res){
 
-    var today = Date.now();
-    var id = shortid.generate();
-    var epass = encrypt.encryptPassword(req.body.password);
-
+    
     //create user.
     var newUser = new userModel({
 
-      userId : id,
       username : req.body.username,
       email : req.body.email,
-      password : epass,
-      createdOn : today,
-      updatedOn : today
-
-    });
+      password : req.body.password,
+      });
 
     newUser.save(function(err,result){
       if(err){
@@ -51,7 +36,7 @@ module.exports.controllerFunction = function(app){
         res.render('message',
                     {
                       title:"Error",
-                      msg:"Some Error Occured During Creation.",
+                      message:"Some Error Occured During Creation.",
                       status:500,
                       error:err,
                       user:req.session.user,
@@ -62,7 +47,7 @@ module.exports.controllerFunction = function(app){
         res.render('message',
                     {
                       title:"Empty",
-                      msg:"User Is Not Created. Please Try Again.",
+                      message:"User Is Not Created. Please Try Again.",
                       status:404,
                       error:"",
                       user:req.session.user,

@@ -1,83 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <title><%= title %></title>
-   </head>
-   <body>
-      <header>
-        <nav class="navbar navbar-inverse">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <a href="/" class="boxN">chatApplication</a>
-            </div>
-            <ul class="nav navbar-nav navbar-right">
-              <li class="boxF"><a href="/">Home</a></li>
-              <li class="boxF"><a href="/chat">Chat</a></li>
-              <% if(user){ %>
-                <li  class="boxF"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
-                <li  class="boxF"><a href="#">Hello, <%= user.username %></a></li>
-                <li  class="boxF"><a href="/user/logout">Logout</a></li>
-              <% } else{ %>
-                <li class="boxF"><a href="/user/login">Login</a></li>
-                <li class="boxF"><a href="/user/signup">Signup</a></li>
-              <% } %>
-            </ul>
+ <head>
+    <title><%= title %></title>
+ </head>
+ <body>
+    <header>
+      <nav>
+        <div>
+          <div>
+            <a href="/">chatApplication</a>
           </div>
-        </nav>
-      </header>
-      <div class="panel panel-primary" style="margin-left:10%;margin-right:10%;">
-         <div class="panel-heading">
-            <h3>WelCome to our chat Application</h3>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/chat">Chat</a></li>
+            <% if(user){ %>
+              <li><a href=""><span id="totalOnline">0</span>  User's Online</a></li>
+              <li><a href="#">Hello, <%= user.username %></a></li>
+              <li><a href="/user/logout">Logout</a></li>
+            <% } else{ %>
+              <li><a href="/user/login">Login</a></li>
+              <li><a href="/user/signup">Signup</a></li>
+            <% } %>
+          </ol>
+        </div>
+      </nav>
+    </header>
+    <div>
+     <div>
+        <h3>WelCome to our chat Application</h3>
+        <div>
+           <ul id="hell0">
+           </ul>
+        </div>
+     </div>
+    </div>
+    <main>
+     <div>
+        <input type="hidden" id="user" value="<%= user.username %>">
+      <div>
+         <div>
             <div>
-               <ul id="hell0" class="list-unstyled">
-               </ul>
-            </div>
-         </div>
-      </div>
-      <main>
-         <div class="container-fluid">
-            <input type="hidden" id="user" value="<%= user.username %>">
-            <div class="row">
-               <div class="col-sm-4">
-                  <div class="panel panel-primary">
-                     <div class="panel-heading">
-                        <h2>Chat Options</h2>
-                     </div>
-                     <div class="panel-body" id="scrl1">
-                        <h4 class="boxF">For Group Chat Click on Group Button and for One-to-One chat click on Username</h4>
-                        <ul id="list"></ul>
-                     </div>
-                     <div class="panel-footer">
-                        <p id="typing" class="btn btn-danger btn-block btn-lg"></p>
-                     </div>
-                  </div>
+               <div>
+                  <h2>Chat Options</h2>
                </div>
-               <div class="col-sm-8">
-                  <div class="panel panel-primary">
-                     <div class="panel-heading">
-                        <h4 id="frndName">Chat Room</h4>
-                     </div>
-                     <div class="panel-body" id="scrl2">
-                        <p id="loading">Loading..... Please Wait.</p>
-                        <p id="noChat">No More Chats To Display.....</p>
-                        <p id="initMsg">!!...Click On User Or Group Button To Start Chat...!!</p>
-                        <ul id="messages"></ul>
-                     </div>
-                     <div class="panel-footer">
-                        <form id="chatForm" action="">
-                           <input id="myMsg" class="input-box-send" autocomplete="off" placeholder="Write Message Here..">
-                           <button id="sendBtn" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-send"></span> <b>Send</b></button>
-                        </form>
-                     </div>
-                  </div>
+               <div  id="scrl1">
+                  <h4>Click on the user button whom you want to chat</h4>
+                  <ul id="list"></ul>
+               </div>
+               <div>
+                  <p id="typing" class="btn btn-danger btn-block btn-lg"></p>
                </div>
             </div>
          </div>
-      </main>
-      <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-      <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
-      <script src="/moment.min.js"></script>
-      <script src="/scriptforChat.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-   </body>
+         <div>
+            <div>
+               <div>
+                  <h4 id="frndName">Chat Room</h4>
+               </div>
+               <div id="scrl2">
+                  <p id="loading"></p>
+                  <p id="noChat">No More Chats To Display.....</p>
+                  <p id="initMsg"></p>
+                  <ul id="messages"></ul>
+               </div>
+               <div>
+                  <form id="chatForm" action="">
+                     <input id="myMsg" autocomplete="off" placeholder="Write Message Here..">
+                     <button id="sendBtn"><span></span> <b>Send</b></button>
+                  </form>
+               </div>
+            </div>
+         </div>
+        </div>
+     </div>
+    </main>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="/moment.min.js"></script>
+    <script src="/scriptforChat.js"></script>
+ </body>
 </html>

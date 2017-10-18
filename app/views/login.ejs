@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <title><%= title %></title>
-   </head>
-   <body>
-      <header>
-        <nav>
+ <head>
+    <title><%= title %></title>
+ </head>
+ <body>
+    <header>
+      <nav>
+        <div>
+             <div>
+               <a href="/">chatApplication</a>
+             </div>
+             <ol>
+               <li><a href="/">Home</a></li>
+               <li><a href="/chat">Chat</a></li>
+               <% if(user){ %>
+                 <li><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
+                 <li><a href="#">Hello, <%= user.username %></a></li>
+                 <li><a href="/user/logout">Logout</a></li>
+               <% } else{ %>
+                 <li><a href="/user/login">Login</a></li>
+                 <li><a href="/user/signup">Signup</a></li>
+               <% } %>
+             </ol>
+        </div>
+      </nav>
+    </header>
+    <main>
+       <main>
           <div>
-               <div>
-                 <a href="/">chatApplication</a>
-               </div>
-               <ol>
-                 <li><a href="/">Home</a></li>
-                 <li><a href="/chat">Chat</a></li>
-                 <% if(user){ %>
-                   <li><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
-                   <li><a href="#">Hello, <%= user.username %></a></li>
-                   <li><a href="/user/logout">Logout</a></li>
-                 <% } else{ %>
-                   <li><a href="/user/login">Login</a></li>
-                   <li><a href="/user/signup">Signup</a></li>
-                 <% } %>
-               </ol>
+             <br>
+             <p><b>Sign In to Your Account</b></p>
+             <form  action="/user/existingUser/login" method="post">
+                <div>
+                   <p>Email:</p>
+                   <input type="email" name="email" placeholder="Email" autofocus="" required="">
+                </div>
+                <div>
+                   <p>PassWord:</p> 
+                   <input type="password" name="password" placeholder="Password" required="">
+                </div>
+                <br>
+                <button type="submit" name="submit">Login</button><br>
+                <p><b>Don't have an account?</b> </p>
+                <a href="/user/signup"><b>Sign Up Here</b></a><br>
+             </form>
           </div>
-        </nav>
-      </header>
-      <main>
-         <main>
-            <div>
-               <br>
-               <p><b>Sign In to Your Account</b></p>
-               <form class="login-form" action="/user/api/v1/login" method="post">
-                  <div>
-                     <p>Email:</p>
-                     <input type="email" name="email" placeholder="Email" autofocus="" required="">
-                  </div>
-                  <div>
-                     <p>PassWord:</p> 
-                     <input type="password" name="password" placeholder="Password" required="">
-                  </div>
-                  <br>
-                  <button type="submit" name="submit">Login</button><br>
-                  <p><b>Don't have an account?</b> </p>
-                  <a href="/user/signup"><b>Sign Up Here</b></a><br>
-               </form>
-            </div>
-         </main>
-         <!-- js files -->
-         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-         <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
-         <script src="/moment.min.js"></script>
-         </main>
-   </body>
+       </main>
+       <!-- js files -->
+       <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+       <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
+       <script src="/moment.min.js"></script>
+       </main>
+ </body>
 </html>

@@ -15,7 +15,7 @@ var chatModel = mongoose.model('Chat');
 var roomModel = mongoose.model('Room');
 
 
-//reatime magic begins here
+
 module.exports.sockets = function(http) {
   io = socketio.listen(http);
 
@@ -46,7 +46,7 @@ module.exports.sockets = function(http) {
 
 
       //getting all users list
-      eventEmitter.emit('get-all-users');
+      eventEmitter.emit('retrieveAllUsers');
 
       //sending all users list. and setting if online or offline.
       sendUserStack = function() {
@@ -64,28 +64,23 @@ module.exports.sockets = function(http) {
     }); //end of set-user-data event.
 
     //setting room.
-    socket.on('set-room', function(room) {
+    socket.on('initialseRoom', function(room) {
       //leaving room.
       socket.leave(socket.room);
       //getting room data.
-      eventEmitter.emit('get-room-data', room);
+      eventEmitter.emit('retrieveRoomData', room);
       //setting room and join.
       setRoom = function(roomId) {
         socket.room = roomId;
         console.log("roomId : " + socket.room);
         socket.join(socket.room);
-        ioChat.to(userSocket[socket.username]).emit('set-room', socket.room);
+        ioChat.to(userSocket[socket.username]).emit('initialseRoom', socket.room);
       };
 
-    }); //end of set-room event.
+    }); //end of initialseRoom event.
 
-    //emits event to read old-chats-init from database.
-    socket.on('old-chats-init', function(data) {
-      eventEmitter.emit('read-chat', data);
-    });
-
-    //emits event to read old chats from database.
-    socket.on('old-chats', function(data) {
+    //emits event to read initialseOldChat from database.
+    socket.on('initialseOldChat', function(data) {
       eventEmitter.emit('read-chat', data);
     });
 
@@ -97,25 +92,25 @@ module.exports.sockets = function(http) {
       });
     }
 
-    //showing msg on typing.
+    //showing message on typing.
     socket.on('typing', function() {
       socket.to(socket.room).broadcast.emit('typing', socket.username + " : is typing...");
     });
 
     //for showing chats.
-    socket.on('chat-msg', function(data) {
+    socket.on('chat-message', function(data) {
       //emits event to save chat to database.
       eventEmitter.emit('save-chat', {
-        msgFrom: socket.username,
-        msgTo: data.msgTo,
-        msg: data.msg,
+        sender: socket.username,
+        receiver: data.receiver,
+        message: data.message,
         room: socket.room,
         date: data.date
       });
-      //emits event to send chat msg to all clients.
-      ioChat.to(socket.room).emit('chat-msg', {
-        msgFrom: socket.username,
-        msg: data.msg,
+      //emits event to send chat message to all clients.
+      ioChat.to(socket.room).emit('chat-message', {
+        sender: socket.username,
+        message: data.message,
         date: data.date
       });
     });
@@ -147,9 +142,9 @@ module.exports.sockets = function(http) {
 
     var newChat = new chatModel({
 
-      msgFrom: data.msgFrom,
-      msgTo: data.msgTo,
-      msg: data.msg,
+      sender: data.sender,
+      receiver: data.receiver,
+      message: data.message,
       room: data.room,
       createdOn: data.date
 
@@ -187,8 +182,8 @@ module.exports.sockets = function(http) {
       });
   }); //end of reading chat from database.
 
-  //listening for get-all-users event. creating list of all users.
-  eventEmitter.on('get-all-users', function() {
+  //listening for retrieveAllUsers event. creating list of all users.
+  eventEmitter.on('retrieveAllUsers', function() {
     userModel.find({})
       .select('username')
       .exec(function(err, result) {
@@ -203,19 +198,19 @@ module.exports.sockets = function(http) {
           sendUserStack();
         }
       });
-  }); //end of get-all-users event.
+  }); //end of retrieveAllUsers event.
 
-  //listening get-room-data event.
-  eventEmitter.on('get-room-data', function(room) {
+  //listening retrieveRoomData event.
+  eventEmitter.on('retrieveRoomData', function(room) {
     roomModel.find({
       $or: [{
-        name1: room.name1
+        firstRoom: room.firstRoom
       }, {
-        name1: room.name2
+        firstRoom: room.secondRoom
       }, {
-        name2: room.name1
+        secondRoom: room.firstRoom
       }, {
-        name2: room.name2
+        secondRoom: room.secondRoom
       }]
     }, function(err, result) {
       if (err) {
@@ -223,23 +218,20 @@ module.exports.sockets = function(http) {
       } else {
         if (result == "" || result == undefined || result == null) {
 
-          var today = Date.now();
-
-          newRoom = new roomModel({
-            name1: room.name1,
-            name2: room.name2,
-            lastActive: today,
-            createdOn: today
+            newRoom = new roomModel({
+            firstRoom: room.firstRoom,
+            secondRoom: room.secondRoom,
+            lastActive: Date.now()
           });
 
-          newRoom.save(function(err, newResult) {
+          newRoom.save(function(err, roomCreated) {
 
             if (err) {
               console.log("Error : " + err);
-            } else if (newResult == "" || newResult == undefined || newResult == null) {
+            } else if (roomCreated == "" || roomCreated == undefined || roomCreated == null) {
               console.log("Some Error Occured During Room Creation.");
             } else {
-              setRoom(newResult._id); //calling setRoom function.
+              setRoom(roomCreated._id); //calling setRoom function.
             }
           }); //end of saving room.
 
@@ -249,6 +241,87 @@ module.exports.sockets = function(http) {
         }
       } //end of else.
     }); //end of find room.
-  });
-  return io; //end of get-room-data listener.
-} //end of database operations for chat feature.
+  }); //end of retrieveRoomData listener.
+  //end of database operations for chat feature.
+
+  //
+  //
+
+  //to verify for unique username and email at signup.
+  //socket namespace for signup.
+  var ioSignup = io.of('/signup');
+
+  var checkUserName, checkEmail; //declaring variables for function.
+
+  ioSignup.on('connection', function(socket) {
+    console.log("signup connected.");
+
+    //verifying unique username.
+    socket.on('checkUserName', function(uname) {
+      eventEmitter.emit('findUsername', uname); //event to perform database operation.
+    }); //end of checkUserName event.
+
+    //function to emit event for checkUserName.
+    checkUserName = function(data) {
+      ioSignup.to(socket.id).emit('checkUserName1', data); //data can have only 1 or 0 value.
+    }; //end of checkUsername function.
+
+    //verifying unique email.
+    socket.on('checkEmail', function(email) {
+      eventEmitter.emit('findEmail', email); //event to perform database operation.
+    }); //end of checkEmail event.
+
+    //function to emit event for checkEmail.
+    checkEmail = function(data) {
+      ioSignup.to(socket.id).emit('checkEmail', data); //data can have only 1 or 0 value.
+    }; //end of checkEmail function.
+
+    //on disconnection.
+    socket.on('disconnect', function() {
+      console.log("signup disconnected.");
+    });
+  }); //end of ioSignup connection event.
+
+  //database operations are kept outside of socket.io code.
+  //event to find and check username.
+  eventEmitter.on('findUsername', function(username) {
+
+    userModel.find({
+      'username': username
+    },function(err, result) {
+        if (err) {
+          console.log("Error : " + err);
+        } else {
+          //console.log(result);
+          if (result == "") {
+            checkUserName(1); //send 1 if username not found.
+          } else {
+            checkUserName(0); //send 0 if username found.
+          }
+        }
+      });
+  }); //end of findUsername event.
+
+  //event to find and check email.
+  eventEmitter.on('findEmail', function(email) {
+
+    userModel.find({
+        'email': email
+      },function(err, result) {
+          if (err) {
+            console.log("Error : " + err);
+          } else {
+            //console.log(result);
+            if (result == "") {
+              checkEmail(1); //send 1 if email not found.
+            } else {
+              checkEmail(0); //send 0 if email found.
+            }
+          }
+        });
+  }); //end of findUsername event.
+
+  //
+  //
+  return io;
+};
