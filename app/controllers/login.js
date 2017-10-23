@@ -37,17 +37,14 @@ module.exports.controllerFunction = function(app){
                       title:"Error",
                       message:"Some Error Occured During Login.",
                       status:500,
-                      error:err,
-                      user:req.session.user,
-                      chat:req.session.chat
+                      error:err
                     });
       }
       else if(result == null || result == undefined || result == ""){
         res.render('signup',
                     {
                       title:"User Signup",
-                      user:req.session.user,
-                      chat:req.session.chat
+                      user:req.session.user
                     }
           )
       }
