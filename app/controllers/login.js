@@ -58,6 +58,49 @@ module.exports.controllerFunction = function(app){
     });
   });
 
+
+  //route for forgot password
+  loginRouter.get('/forgotPassword',function(req,res){
+    res.render('forgotPassword');
+  });
+
+
+  loginRouter.post('/changePasswordAndLogin',function(req,res){
+    userModel.findOne({'email':req.body.email},function(err,userFound){
+      if(err){
+         res.render('message',{
+          title:"Error",
+          message:"server error",
+          status:500,
+          error:err
+        });
+      }
+      else if(userFound==null)
+      {
+        res.render('signup',
+                    {
+                      title:"User Signup",
+                      user:req.session.user
+                    }
+          )
+      }
+      else{
+        if(req.body.newPassword!=req.body.confirmPassword){
+         console.log("newPassword and confirmPassword should match"); 
+         res.render('forgotPassword');
+        }
+        else{
+           userFound.password =req.body.newPassword;
+            userFound.save(function(){
+            req.session.user=userFound;
+            delete req.session.user.password;
+            res.redirect('/chat');
+          }); 
+        }
+      }
+    });
+  });
+
   app.use('/user',loginRouter);
 
 } // login controller end

@@ -11,10 +11,7 @@ $ (function(){
 
   //passing data on connection.
   socket.on('connect',function(){
-    console.log("username: "+ username);
-    if(username!=null && username!=undefined && username!=''){
-      socket.emit('set-user-data',username);
-    }
+    socket.emit('set-user-data',username);
     // setTimeout(function() { alert(username+" logged In"); }, 500);
 
     socket.on('broadcast',function(data){
@@ -49,10 +46,11 @@ $ (function(){
 
       }
       else{
-          var txt2 = $('<span></span>').text(stack[user]).css({"color":"blue","font-size":"18px"});
+        var txt2 = $('<span></span>').text(stack[user]).css({"color":"blue","font-size":"18px"});
       }
       //listing all users.
       $('#list').append($('<li>').append(txt1,txt2));
+      $('#list').append($('<br>'));
       $('#totalOnline').text(totalOnline);
     }//end of for.
    $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
@@ -215,4 +213,7 @@ $ (function(){
     messageCount = 0;
     noChat = 0;
   });//end of connect event.
+
+
+
 });//end of function.
