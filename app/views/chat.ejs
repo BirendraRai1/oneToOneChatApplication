@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-    <title><%= title %></title>
- </head>
- <body>
-    <header>
-      <nav>
+<head>
+  <title><%= title %></title>
+</head>
+<body>
+  <header>
+    <nav>
+      <div>
         <div>
-          <div>
-            <a href="/"><h2>chatApplication</h2></a>
-          </div>
-              <ol>
-               <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/">Home</a></li>
-               <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/chat">Chat</a></li>
-               <% if(user){ %>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="#">Hello, <%= user.username %></a></li>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/logout">Logout</a></li>
-               <% } else{ %>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/login">Login</a></li>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/signup">Signup</a></li>
-               <% } %>
-             </ol>
+          <a href="/"><h2>chatApplication</h2></a>
         </div>
-      </nav>
-    </header>
+        <ol>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/">Home</a></li>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/chat">Chat</a></li>
+         <% if(user){ %>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="#">Hello, <%= user.username %></a></li>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/logout">Logout</a></li>
+         <% } else{ %>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/login">Login</a></li>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/signup">Signup</a></li>
+         <% } %>
+       </ol>
+     </div>
+   </nav>
+ </header>
+ <div>
+   <div>
+    <h3>WelCome to our chat Application</h3>
+    <div>
+     <ul id="hell0">
+     </ul>
+   </div>
+ </div>
+</div>
+<main>
+ <div>
+  <input type="hidden" id="user" value="<%= user.username %>">
+  <div>
+   <div>
     <div>
      <div>
-        <h3>WelCome to our chat Application</h3>
-        <div>
-           <ul id="hell0">
-           </ul>
-        </div>
-     </div>
+      <h2>Chat Options</h2>
     </div>
-    <main>
-     <div>
-        <input type="hidden" id="user" value="<%= user.username %>">
-      <div>
-         <div>
-            <div>
-               <div>
-                  <h2>Chat Options</h2>
-               </div>
-               <div  id="scrl1">
-                  <h4>Click on the user button whom you want to chat</h4>
-                  <ul id="list"></ul>
-               </div>
-               <div>
-                  <p id="typing" class="btn btn-danger btn-block btn-lg"></p>
-               </div>
-            </div>
-         </div>
-         <div>
-            <div>
-               <div>
-                  <h4 id="frndName">Chat Room</h4>
-               </div>
-               <div id="scrl2">
-                  <p id="loading"></p>
-                  <p id="noChat">No More Chats To Display.....</p>
-                  <p id="initMsg"></p>
-                  <ul id="messages"></ul>
-               </div>
-               <div>
-                  <form id="chatForm" action="">
-                     <input id="myMsg" autocomplete="off" placeholder="Write Message Here..">
-                     <button id="sendBtn"><span></span> <b>Send</b></button>
-                  </form>
-               </div>
-            </div>
-         </div>
-        </div>
-     </div>
-    </main>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script src="/moment.min.js"></script>
-    <script src="/scriptforChat.js"></script>
- </body>
+    <div  id="scrl1">
+      <h4>Click on the user button whom you want to chat</h4>
+      <ul id="list"></ul>
+    </div>
+    <div>
+      <p id="typing" class="btn btn-danger btn-block btn-lg"></p>
+    </div>
+  </div>
+</div>
+<div>
+  <div>
+   <div>
+    <h4 id="frndName">Chat Room</h4>
+  </div>
+  <div id="scrl2">
+    <p id="loading"></p>
+    <p id="noChat">No More Chats To Display.....</p>
+    <p id="initMsg"></p>
+    <ul id="messages"></ul>
+  </div>
+  <div>
+    <form id="chatForm" action="">
+     <input id="myMsg" autocomplete="off" placeholder="Write Message Here..">
+     <button id="sendBtn"><span></span> <b>Send</b></button>
+   </form>
+ </div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="/moment.min.js"></script>
+<script src="/scriptforChat.js"></script>
+</body>
 </html>

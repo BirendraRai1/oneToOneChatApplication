@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <title><%= title %></title>
-   </head>
-   <body>
-      <header>
-        <nav>
-          <div>
-            <div>
-              <a href="/"><h2>chatApplication</h2></a>
-            </div>
-              <ol>
-               <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/">Home</a></li>
-               <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/chat">Chat</a></li>
-               <% if(user){ %>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="#">Hello, <%= user.username %></a></li>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/logout">Logout</a></li>
-               <% } else{ %>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/login">Login</a></li>
-                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/signup">Signup</a></li>
-               <% } %>
-             </ol>
-          </div>
-        </nav>
-      </header>
-      <main>
-         <div>
-            <br>
-            <p><b>Sign Up</b></p>
-            <form action="/user/newuser/signup" method="post">
-               <p id="error1"></p>
-               <div>
-                  <p>Username:</p>
-                  <input id="username"  type="text" name="username" placeholder="Username" autofocus="" autocomplete="off" required="">
-                  <span id="ik"></span>
-                  <span id="ir"></span>
-               </div>
-               <div>
-                  <p>Email:</p>
-                  <input id="email" type="email" name="email" placeholder="Email" autocomplete="off" required="">
-                  <span id="ik1"></span>
-                  <span id="ir1"</span>
-               </div>
-               <div>
-                  <p>Password:</p>
-                  <input id="password"  type="password" name="password" placeholder="Password" required="">
-                  <span id="ik2"></span>
-                  <span id="ir2"></span>
-               </div>
-               <br>
-               <button type="submit" name="submit">Signup</button><br>
-               <p><b>Have an account?</b> </p>
-               <a href="/user/login" ><b>Log In Here</b></a><br>
-            </form>
-         </div>
-      </main>
-      <!-- js files -->
-      <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-      <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
-      <script src="/moment.min.js"></script>
-      <script src="/scriptForSignup.js"></script>
-      </body>
+<head>
+  <title><%= title %></title>
+</head>
+<body>
+  <header>
+    <nav>
+      <div>
+        <div>
+          <a href="/"><h2>chatApplication</h2></a>
+        </div>
+        <ol>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/">Home</a></li>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/chat">Chat</a></li>
+         <% if(user){ %>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="#">Hello, <%= user.username %></a></li>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/logout">Logout</a></li>
+         <% } else{ %>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/login">Login</a></li>
+         <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/signup">Signup</a></li>
+         <% } %>
+       </ol>
+     </div>
+   </nav>
+ </header>
+ <main>
+   <div>
+    <br>
+    <p><b>Sign Up</b></p>
+    <form action="/user/newuser/signup" method="post">
+     <p id="error1"></p>
+     <div>
+      <p>Username:</p>
+      <input id="username"  type="text" name="username" placeholder="Username" autofocus="" autocomplete="off" required="">
+      <span id="ik"></span>
+      <span id="ir"></span>
+    </div>
+    <div>
+      <p>Email:</p>
+      <input id="email" type="email" name="email" placeholder="Email" autocomplete="off" required="">
+      <span id="ik1"></span>
+      <span id="ir1"</span>
+      </div>
+      <div>
+        <p>Password:</p>
+        <input id="password"  type="password" name="password" placeholder="Password" required="">
+        <span id="ik2"></span>
+        <span id="ir2"></span>
+      </div>
+      <br>
+      <button type="submit" name="submit">Signup</button><br>
+      <p><b>Have an account?</b> </p>
+      <a href="/user/login" ><b>Log In Here</b></a><br>
+    </form>
+  </div>
+</main>
+<!-- js files -->
+<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+<script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
+<script src="/moment.min.js"></script>
+<script src="/scriptForSignup.js"></script>
+</body>
 </html>

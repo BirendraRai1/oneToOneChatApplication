@@ -10,11 +10,11 @@ module.exports.controllerFunction = function(app){
   chatRouter.get('/chat',auth.checkLogin,function(req,res){
 
     res.render('chat',
-                {
-                  title:"Chat Home",
-                  user:req.session.user,
-                  chat:req.session.chat
-                });
+    {
+      title:"Chat Home",
+      user:req.session.user,
+      chat:req.session.chat
+    });
   });
 
   app.use(chatRouter);

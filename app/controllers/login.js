@@ -12,11 +12,11 @@ module.exports.controllerFunction = function(app){
   //route for login
   loginRouter.get('/login',auth.loggedIn,function(req,res){
     res.render('login',
-                {
-                  title:"User Login",
-                  user:req.session.user,
-                  chat:req.session.chat
-                });
+    {
+      title:"User Login",
+      user:req.session.user,
+      chat:req.session.chat
+    });
   });
 
   //route for logout
@@ -30,23 +30,23 @@ module.exports.controllerFunction = function(app){
   //route for login
   loginRouter.post('/existingUser/login',auth.loggedIn,function(req,res){
 
-      userModel.findOne({$and:[{'email':req.body.email},{'password':req.body.password}]},function(err,result){
+    userModel.findOne({$and:[{'email':req.body.email},{'password':req.body.password}]},function(err,result){
       if(err){
         res.render('message',
-                    {
-                      title:"Error",
-                      message:"Some Error Occured During Login.",
-                      status:500,
-                      error:err
-                    });
+        {
+          title:"Error",
+          message:"Some Error Occured During Login.",
+          status:500,
+          error:err
+        });
       }
       else if(result == null || result == undefined || result == ""){
         res.render('signup',
-                    {
-                      title:"User Signup",
-                      user:req.session.user
-                    }
-          )
+        {
+          title:"User Signup",
+          user:req.session.user
+        }
+        )
       }
       else{
         req.user = result;
@@ -68,37 +68,37 @@ module.exports.controllerFunction = function(app){
   loginRouter.post('/changePasswordAndLogin',function(req,res){
     userModel.findOne({'email':req.body.email},function(err,userFound){
       if(err){
-         res.render('message',{
-          title:"Error",
-          message:"server error",
-          status:500,
-          error:err
-        });
-      }
-      else if(userFound==null)
+       res.render('message',{
+        title:"Error",
+        message:"server error",
+        status:500,
+        error:err
+      });
+     }
+     else if(userFound==null)
+     {
+      res.render('signup',
       {
-        res.render('signup',
-                    {
-                      title:"User Signup",
-                      user:req.session.user
-                    }
-          )
+        title:"User Signup",
+        user:req.session.user
       }
-      else{
-        if(req.body.newPassword!=req.body.confirmPassword){
-         console.log("newPassword and confirmPassword should match"); 
-         res.render('forgotPassword');
-        }
-        else{
-           userFound.password =req.body.newPassword;
-            userFound.save(function(){
-            req.session.user=userFound;
-            delete req.session.user.password;
-            res.redirect('/chat');
-          }); 
-        }
-      }
-    });
+      )
+    }
+    else{
+      if(req.body.newPassword!=req.body.confirmPassword){
+       console.log("newPassword and confirmPassword should match"); 
+       res.render('forgotPassword');
+     }
+     else{
+       userFound.password =req.body.newPassword;
+       userFound.save(function(){
+        req.session.user=userFound;
+        delete req.session.user.password;
+        res.redirect('/chat');
+      }); 
+     }
+   }
+ });
   });
 
   app.use('/user',loginRouter);

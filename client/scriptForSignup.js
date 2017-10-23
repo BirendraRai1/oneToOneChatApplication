@@ -9,21 +9,21 @@ $(function(){
   //to check for unique username.
   $('#username').keyup(function(){
     var username = $('#username').val();
-      socket.emit('checkUserName',username);
-      socket.on('checkUserName1',function(data){
-        if(data == 1){
-          userflag = 1;
-          $('#ik').show();
-          $('#ir').hide();
-          $('#error1').hide();
-        }
-        else{
-          userflag = 0;
-          $('#ik').hide();
-          $('#ir').show();
-          $('#error1').show().text("Username Already Exists. Please, Change.");
-        }
-      });
+    socket.emit('checkUserName',username);
+    socket.on('checkUserName1',function(data){
+      if(data == 1){
+        userflag = 1;
+        $('#ik').show();
+        $('#ir').hide();
+        $('#error1').hide();
+      }
+      else{
+        userflag = 0;
+        $('#ik').hide();
+        $('#ir').show();
+        $('#error1').show().text("Username Already Exists. Please, Change.");
+      }
+    });
   });//end of check for unique username.
 
   //checking for email.

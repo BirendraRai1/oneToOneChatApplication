@@ -31,12 +31,12 @@ mongoose.connection.once('open',function(){
 
 //session setup
 app.use(session({
-        name : 'myCustomCookie',
-        secret : 'myAppSecret',
-        resave : true,
-        httpOnly : true,
-        saveUninitialized: true,
-        cookie:{secure:false}
+  name : 'myCustomCookie',
+  secret : 'myAppSecret',
+  resave : true,
+  httpOnly : true,
+  saveUninitialized: true,
+  cookie:{secure:false}
 }));
 
 
@@ -72,14 +72,14 @@ fs.readdirSync("./app/controllers").forEach(function(file){
 //handling 404 error.
 app.use(function(req,res){
   res.status(404).render('message',
-                          {
-                            title:"404",
-                            msg:"Page Not Found.",
-                            status:404,
-                            error:"",
-                            user:req.session.user,
-                            chat:req.session.chat
-                          });
+  {
+    title:"404",
+    msg:"Page Not Found.",
+    status:404,
+    error:"",
+    user:req.session.user,
+    chat:req.session.chat
+  });
 });
 
 //app level middleware for setting logged in user.
@@ -94,12 +94,12 @@ app.use(function(req,res,next){
 			if(user){
         req.user = user;
         delete req.user.password;
-				req.session.user = user;
+        req.session.user = user;
         delete req.session.user.password;
-				next();
-			}
+        next();
+      }
 
-		});
+    });
 	}
 	else{
 		next();

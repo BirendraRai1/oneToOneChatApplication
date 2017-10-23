@@ -17,9 +17,9 @@ $ (function(){
     socket.on('broadcast',function(data){
       document.getElementById("hell0").innerHTML += '<li>'+ data.description +'</li>';
       $(function() {
-          var wtf    = $('#hell0');
-          var height = wtf[0].scrollHeight;
-          wtf.scrollTop(height);
+        var wtf    = $('#hell0');
+        var height = wtf[0].scrollHeight;
+        wtf.scrollTop(height);
       });
     });
 
@@ -53,7 +53,7 @@ $ (function(){
       $('#list').append($('<br>'));
       $('#totalOnline').text(totalOnline);
     }//end of for.
-   $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
+    $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
   }); //end of receiving onlineStack event.
 
 
@@ -77,8 +77,8 @@ $ (function(){
     $('#sendBtn').hide(); //hiding send button to prevent sending of empty messages.
 
     //assigning two names for room. which helps in one-to-one chat.
-      var currentRoom = username+"-"+toUser;
-      var reverseRoom = toUser+"-"+username;
+    var currentRoom = username+"-"+toUser;
+    var reverseRoom = toUser+"-"+username;
     
 
     //event to set room and join.
@@ -190,10 +190,10 @@ $ (function(){
     var txt4 = $('<p></p>').text(data.message).css({"color":"#000000"});
     //showing chat in chat box.
     $('#messages').append($('<li>').append(txt3,txt4));
-      messageCount++;
-      console.log(messageCount);
-      $('#typing').text("");
-      $('#scrl2').scrollTop($('#scrl2').prop("scrollHeight"));
+    messageCount++;
+    console.log(messageCount);
+    $('#typing').text("");
+    $('#scrl2').scrollTop($('#scrl2').prop("scrollHeight"));
   }); //end of receiving messages.
 
   //on disconnect event.

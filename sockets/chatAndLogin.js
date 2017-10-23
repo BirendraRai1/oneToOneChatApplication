@@ -167,15 +167,15 @@ module.exports.sockets = function(http) {
   eventEmitter.on('read-chat', function(data) {
 
     chatModel.find({})
-      .where('room').equals(data.room)
-      .sort('-createdOn')
-      .skip(data.msgCount)
-      .lean()
-      .limit(5)
-      .exec(function(err, result) {
-        if (err) {
-          console.log("Error : " + err);
-        } else {
+    .where('room').equals(data.room)
+    .sort('-createdOn')
+    .skip(data.msgCount)
+    .lean()
+    .limit(5)
+    .exec(function(err, result) {
+      if (err) {
+        console.log("Error : " + err);
+      } else {
           //calling function which emits event to client to show chats.
           oldChats(result, data.username, data.room);
         }
@@ -185,11 +185,11 @@ module.exports.sockets = function(http) {
   //listening for retrieveAllUsers event. creating list of all users.
   eventEmitter.on('retrieveAllUsers', function() {
     userModel.find({})
-      .select('username')
-      .exec(function(err, result) {
-        if (err) {
-          console.log("Error : " + err);
-        } else {
+    .select('username')
+    .exec(function(err, result) {
+      if (err) {
+        console.log("Error : " + err);
+      } else {
           //console.log(result);
           for (var i = 0; i < result.length; i++) {
             userStack[result[i].username] = "Offline";
@@ -218,7 +218,7 @@ module.exports.sockets = function(http) {
       } else {
         if (result == "" || result == undefined || result == null) {
 
-            newRoom = new roomModel({
+          newRoom = new roomModel({
             firstRoom: room.firstRoom,
             secondRoom: room.secondRoom,
             lastActive: Date.now()
@@ -289,9 +289,9 @@ module.exports.sockets = function(http) {
     userModel.find({
       'username': username
     },function(err, result) {
-        if (err) {
-          console.log("Error : " + err);
-        } else {
+      if (err) {
+        console.log("Error : " + err);
+      } else {
           //console.log(result);
           if (result == "") {
             checkUserName(1); //send 1 if username not found.
@@ -306,11 +306,11 @@ module.exports.sockets = function(http) {
   eventEmitter.on('findEmail', function(email) {
 
     userModel.find({
-        'email': email
-      },function(err, result) {
-          if (err) {
-            console.log("Error : " + err);
-          } else {
+      'email': email
+    },function(err, result) {
+      if (err) {
+        console.log("Error : " + err);
+      } else {
             //console.log(result);
             if (result == "") {
               checkEmail(1); //send 1 if email not found.
