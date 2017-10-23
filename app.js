@@ -12,9 +12,7 @@ var logger = require('morgan');
 //port setup
 var port = process.env.PORT || 3000;
 
-//socket.i
 require('./sockets/chatAndLogin.js').sockets(http);
-//require('./sockets/signup.js').sockets(http);
 
 app.use(logger('dev'));
 
@@ -25,7 +23,7 @@ app.use(cookieParser());
 
 
 //db connection
-var dbPath = "mongodb://localhost/chatApplication4";
+var dbPath = "mongodb://localhost/chatApplication11";
 mongoose.connect(dbPath);
 mongoose.connection.once('open',function(){
   console.log("Database Connection opened.");

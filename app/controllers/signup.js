@@ -13,8 +13,7 @@ module.exports.controllerFunction = function(app){
     res.render('signup',
                 {
                   title:"User Signup",
-                  user:req.session.user,
-                  chat:req.session.chat
+                  user:req.session.user
                 });
   });
 

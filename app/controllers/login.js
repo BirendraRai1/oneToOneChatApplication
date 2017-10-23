@@ -43,15 +43,13 @@ module.exports.controllerFunction = function(app){
                     });
       }
       else if(result == null || result == undefined || result == ""){
-        res.render('message',
+        res.render('signup',
                     {
-                      title:"Error",
-                      message:"User Not Found. Please Check Your Username and Password.",
-                      status:404,
-                      error:"",
+                      title:"User Signup",
                       user:req.session.user,
                       chat:req.session.chat
-                    });
+                    }
+          )
       }
       else{
         req.user = result;

@@ -8,20 +8,20 @@
 	      <nav>
 	            <div>
 	              <div>
-	                	<a href="/">chatApplication</a>
+	                	<a href="/"><h2>chatApplication</h2></a>
 	              </div>
 	              <ol>
-		                <li><a href="/">Home</a></li>
-		                <li><a href="/chat">Chat</a></li>
-		                <% if(user){ %>
-		                  <li><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
-		                  <li><a href="#">Hello, <%= user.username %></a></li>
-		                  <li><a href="/user/logout">Logout</a></li>
-		                <% } else{ %>
-		                  <li><a href="/user/login">Login</a></li>
-		                  <li><a href="/user/signup">Signup</a></li>
-		                <% } %>
-	              </ol>
+		               <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/">Home</a></li>
+		               <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/chat">Chat</a></li>
+		               <% if(user){ %>
+		                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
+		                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="#">Hello, <%= user.username %></a></li>
+		                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/logout">Logout</a></li>
+		               <% } else{ %>
+		                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/login">Login</a></li>
+		                 <li style="display: inline-block;margin:30px;font-weight : bold;}"><a href="/user/signup">Signup</a></li>
+		               <% } %>
+            	 </ol>
 	            </div>
 	      </nav>
 		</header>
