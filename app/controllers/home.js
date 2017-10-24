@@ -10,6 +10,7 @@ module.exports.controllerFunction = function(app){
 
   //router for home.
   homeRouter.get('/',function(req,res){
+  	console.log("came here")
   	res.redirect('/user/login');
   });
 

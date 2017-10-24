@@ -30,7 +30,6 @@ $ (function(){
   //receiving onlineStack.
   socket.on('onlineStack',function(stack){
     $('#list').empty();
-    var totalOnline = 0;
     for (var user in stack){
       //setting txt1. shows users button.
       if(user == username){
@@ -41,7 +40,6 @@ $ (function(){
       }
       //setting txt2. shows online status.
       if(stack[user] == "Online"){
-        totalOnline++;
         var txt2 = $('<span></span>').text(stack[user]).css({"color":"green","font-size":"18px"});
 
       }
@@ -51,9 +49,8 @@ $ (function(){
       //listing all users.
       $('#list').append($('<li>').append(txt1,txt2));
       $('#list').append($('<br>'));
-      $('#totalOnline').text(totalOnline);
-    }//end of for.
-    $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
+       }//end of for.
+       $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
   }); //end of receiving onlineStack event.
 
 

@@ -14,8 +14,7 @@ module.exports.controllerFunction = function(app){
     res.render('login',
     {
       title:"User Login",
-      user:req.session.user,
-      chat:req.session.chat
+      user:req.session.user
     });
   });
 
@@ -35,9 +34,10 @@ module.exports.controllerFunction = function(app){
         res.render('message',
         {
           title:"Error",
-          message:"Some Error Occured During Login.",
+          msg:"Some Error Occured During Login.",
           status:500,
-          error:err
+          error:err,
+          user:req.session.user
         });
       }
       else if(result == null || result == undefined || result == ""){
@@ -70,9 +70,10 @@ module.exports.controllerFunction = function(app){
       if(err){
        res.render('message',{
         title:"Error",
-        message:"server error",
+        msg:"server error",
         status:500,
-        error:err
+        error:err,
+        user:req.session.user
       });
      }
      else if(userFound==null)

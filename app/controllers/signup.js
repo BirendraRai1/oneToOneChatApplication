@@ -14,6 +14,7 @@ module.exports.controllerFunction = function(app){
     {
       title:"User Signup",
       user:req.session.user
+      
     });
   });
 
@@ -35,22 +36,22 @@ module.exports.controllerFunction = function(app){
         res.render('message',
         {
           title:"Error",
-          message:"Some Error Occured During Creation.",
+          msg:"Some Error Occured During Creation.",
           status:500,
           error:err,
-          user:req.session.user,
-          chat:req.session.chat
+          user:req.session.user
+          
         });
       }
       else if(result == undefined || result == null || result == ""){
         res.render('message',
         {
           title:"Empty",
-          message:"User Is Not Created. Please Try Again.",
+          msg:"User Is Not Created. Please Try Again.",
           status:404,
           error:"",
-          user:req.session.user,
-          chat:req.session.chat
+          user:req.session.user
+          
         });
       }
       else{

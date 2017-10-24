@@ -69,18 +69,6 @@ fs.readdirSync("./app/controllers").forEach(function(file){
 });
 
 
-//handling 404 error.
-app.use(function(req,res){
-  res.status(404).render('message',
-  {
-    title:"404",
-    msg:"Page Not Found.",
-    status:404,
-    error:"",
-    user:req.session.user,
-    chat:req.session.chat
-  });
-});
 
 //app level middleware for setting logged in user.
 
@@ -106,6 +94,20 @@ app.use(function(req,res,next){
 	}
 
 });//end of set Logged In User.
+
+//handling 404 error.
+app.use(function(req,res,next){
+ res.render('message',
+ {
+  title:"Page Not Found",
+  msg:" Came here",
+  status:404,
+  error:"",
+  user:req.session.user
+});
+ next();
+});
+
 
 
 http.listen(port,function(){
