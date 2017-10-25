@@ -43,5 +43,6 @@ http://ec2-54-84-24-247.compute-1.amazonaws.com
 	proxy_set_header Host $host;
 	proxy_set_header X-Real-IP $remote_addr;
 	}
+19)Run the command sudo npm install forever -g
 19)Run sudo mongod on the server
 20)Run node app.js from oneToOneChatApplication directory on the server and your application is ready to run on AWS 
